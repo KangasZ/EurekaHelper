@@ -6,7 +6,7 @@ on:
 env:
   SOLUTION_NAME: EurekaHelperZ
   INTERNAL_NAME: EurekaHelperZ
-  RELEASE_DIR: ./EurekaHelperZ/bin/x64/Release/RadarPlugin
+  RELEASE_DIR: ./EurekaHelperZ/bin/x64/Release/EurekaHelperZ
   PERSONAL_PLUGIN_REPO: KangasZ/DalamudPluginRepository
   BRANCH: main
 
