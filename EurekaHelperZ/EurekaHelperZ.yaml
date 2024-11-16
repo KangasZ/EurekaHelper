@@ -1,4 +1,4 @@
-name: Eureka Helper
+name: Eureka Helper Z
 author: Snowy and KangasZ
 punchline: Eureka Tracker in a plugin with many other features.
 description: |-
@@ -25,4 +25,4 @@ tags:
   - Alarms
 category_tags:
   - Utility
-repo_url: https://github.com/snorux/EurekaHelper
+repo_url: https://github.com/KangasZ/EurekaHelper

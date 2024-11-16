@@ -11,6 +11,8 @@
 		<Platforms>x64</Platforms>
 		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     </PropertyGroup>
 
 	<PropertyGroup>
@@ -66,7 +68,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="EurekaHelper.yaml">
+	  <None Update="EurekaHelperZ.yaml">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	  <None Update="Resources\icon.png">
