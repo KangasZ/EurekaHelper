@@ -1,3 +1,5 @@
+This is a redistribution of the existing Eureka Helper Plugin.
+
 <section id="header" align="center">
   <h1>
     <img href="https://https://github.com/snorux/EurekaHelper" src="/EurekaHelper/Resources/icon.png" width="150px" />
