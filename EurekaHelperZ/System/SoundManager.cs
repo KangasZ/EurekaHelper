@@ -29,7 +29,7 @@ namespace EurekaHelperZ.System
         {
             unsafe
             {
-                UIGlobals.PlayChatSoundEffect((uint)soundEffect);
+                UIGlobals.PlaySoundEffect((uint)soundEffect);
             }
         }
     }
