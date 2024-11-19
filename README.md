@@ -1,43 +1,16 @@
-This is a redistribution of the existing Eureka Helper Plugin.
+This is a redistribution of the existing Eureka Helper Plugin. This is essentially the same plugin, however maintained and distributed by me instead of Snowy.
 
-<section id="header" align="center">
-  <h1>
-    <img href="https://https://github.com/snorux/EurekaHelper" src="/EurekaHelper/Resources/icon.png" width="150px" />
-    <br>
-    <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Patrick+Hand&size=50&duration=3000&pause=2000&center=true&vCenter=true&width=435&lines=Eureka+Helper" alt="Eureka Helper" /></a>
-  </h1>
-  <div align="center">
-    <h5>A FFXIV Dalamud plugin</h5>
-    <a href="https://github.com/snorux/EurekaHelper/tags"><img src="https://img.shields.io/github/v/tag/snorux/EurekaHelper?label=version&style=for-the-badge" /></a>
-    <a href="https://github.com/snorux/EurekaHelper"><img src="https://img.shields.io/endpoint?style=for-the-badge&url=https://qzysathwfhebdai6xgauhz4q7m0mzmrf.lambda-url.us-east-1.on.aws/EurekaHelper" /></a>
-    <a href="https://github.com/goatcorp/Dalamud"><img src="https://img.shields.io/badge/ffxiv-dalamud-red.svg?&style=for-the-badge" /></a>
-  </div>
-</section>
+In the short term I may support the official Eureka Helper plugin, however this is up to my own willingness to do so. Any further updates I do will be targeted here.
 
-<hr>
+This will also be distributed via my custom plugin repo.
 
-<details open>
-  <summary>
-    <span>Table of Contents</span>
-  </summary>
-  <ol>
-    <li><a href="#description">Description</a></li>
-    <li><a href="#installation">Installation</a></li>
-    <li><a href="#commands">Commands</a></li>
-    <li><a href="#features">Features</a></li>
-    <ol>
-      <li><a href="#ffxiv-eureka-tracker-gui">FFXIV Eureka Tracker GUI</a></li>
-      <li><a href="#elementals-manager">Elementals Manager</a></li>
-      <li><a href="#instance-tracker">Instance Tracker</a></li>
-      <li><a href="#relic-helper">Relic Helper</a></li>
-      <li><a href="#alarms-manager">Alarms Manager</a></li>
-      <li><a href="#cutomizable-configurations">Cutomizable Configurations</a></li>
-    </ol>
-    <li><a href="#known-issues">Known Issues</a></li>
-  </ol>
-</details>
+## Installation
 
-<hr>
+To use the plugin, please install the custom repository with the following link:
+
+https://raw.githubusercontent.com/KangasZ/DalamudPluginRepository/main/plugin_repository.json
+
+Please do not include my projects in other custom repos like Aku API.
 
 ## Description
 EurekaHelper is a plugin for [XIVLauncher](https://goatcorp.github.io/). It's a handy plugin that enhances your Eureka gameplay with an In-Game Eureka Tracker and convenient quality-of-life features.
@@ -47,10 +20,6 @@ EurekaHelper allows you to effortlessly join or create an [Eureka Tracker](https
 To access the main window, simply type any of the following commands: `/eurekahelper`, `/ehelper`, or `/eh`. All available commands are listed in the "About" tab.  
 
 Leave a star ⭐ on this repository if you have enjoyed using the plugin!
-
-## Installation
-The plugin is available for download via the Dalamud Plugin Installer. Simply type `/xplugins` in-game and select EurekaHelper for installation.
-To opt in for testing versions (when available), right click EurekaHelper in the Plugin Installer and select `Receive plugin testing versions`.
 
 ## Commands
 Following is a list of all available commands for the plugin.
