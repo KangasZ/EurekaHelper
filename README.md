@@ -1,8 +1,6 @@
 This is a redistribution of the existing Eureka Helper Plugin. This is essentially the same plugin, however maintained and distributed by me instead of Snowy.
 
-In the short term I may support the official Eureka Helper plugin, however this is up to my own willingness to do so. Any further updates I do will be targeted here.
-
-This will also be distributed via my custom plugin repo.
+In the short term I will be maintaining the plugin as is with feature work being secondary to maintenance. This may change at any time, however once Snowy returns I intend to return all maintainer status to them.
 
 ## Installation
 
