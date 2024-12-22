@@ -98,7 +98,7 @@ namespace EurekaHelper.System
                     DalamudApi.ToastGui.ShowQuest(sb.BuiltString);
 
                 if (EurekaHelper.Config.PlayPopSound)
-                    SoundManager.PlaySoundEffect(EurekaHelper.Config.NMSoundEffect);
+                    SoundManager.PlaySoundEffect(EurekaHelper.Config.NMChatSoundEffect);
 
                 if (EurekaHelper.Config.DisplayFatePop)
                 {
@@ -164,7 +164,7 @@ namespace EurekaHelper.System
                 if (EurekaHelper.Config.DisplayBunnyFates)
                 {
                     EurekaHelper.PrintMessage(sb.BuiltString);
-                    SoundManager.PlaySoundEffect(EurekaHelper.Config.BunnySoundEffect);
+                    SoundManager.PlaySoundEffect(EurekaHelper.Config.BunnyChatSoundEffect);
                 }
             }
         }

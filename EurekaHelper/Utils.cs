@@ -352,8 +352,8 @@ namespace EurekaHelper
 
         public static void SendMessage(string message)
         {
-            var sanitized = Chat.Instance.SanitiseText(message);
-            Chat.Instance.SendMessage(sanitized);
+            var sanitized = Chat.SanitiseText(message);
+            Chat.SendMessage(sanitized);
         }
 
         public static int DatacenterToEurekaDatacenterId(string datacenterName) => Constants.DatacenterToEurekaDataCenterId.FirstOrDefault(x => x.Value == datacenterName).Key;

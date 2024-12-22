@@ -33,7 +33,7 @@ namespace EurekaHelper.Windows
         private AlarmType AlarmType = AlarmType.Weather;
         private TimeType TimeType = TimeType.Day;
         private EurekaWeather WeatherType = EurekaWeather.FairSkies;
-        private SoundEffect SoundEffect = SoundEffect.SoundEffect45;
+        private ChatSoundEffect SoundEffect = ChatSoundEffect.SoundEffect10;
         private ushort AlarmZone = 732;
         private int MinutesBefore = 5;
 
@@ -57,7 +57,7 @@ namespace EurekaHelper.Windows
                     AlarmType = AlarmType.Weather;
                     TimeType = TimeType.Day;
                     WeatherType = EurekaWeather.FairSkies;
-                    SoundEffect = SoundEffect.SoundEffect45;
+                    SoundEffect = ChatSoundEffect.SoundEffect10;
                     AlarmZone = 732;
                     MinutesBefore = 5;
 
@@ -130,10 +130,10 @@ namespace EurekaHelper.Windows
                 ImGui.LabelText("##SoundLabel", "Sound Effect:"); 
                 ImGui.SameLine(); 
                 ImGui.SetNextItemWidth(150f);
-                var currentSoundEffect = Array.IndexOf(Enum.GetValues<SoundEffect>(), SoundEffect);
-                if (ImGui.Combo("##Sound", ref currentSoundEffect, Enum.GetNames<SoundEffect>(), Enum.GetNames<SoundEffect>().Length))
+                var currentSoundEffect = Array.IndexOf(Enum.GetValues<ChatSoundEffect>(), SoundEffect);
+                if (ImGui.Combo("##Sound", ref currentSoundEffect, Enum.GetNames<ChatSoundEffect>(), Enum.GetNames<ChatSoundEffect>().Length))
                 {
-                    SoundEffect = Enum.GetValues<SoundEffect>()[currentSoundEffect];
+                    SoundEffect = Enum.GetValues<ChatSoundEffect>()[currentSoundEffect];
                     SoundManager.PlaySoundEffect(SoundEffect);
                 }
 
@@ -385,10 +385,10 @@ namespace EurekaHelper.Windows
                         ImGui.LabelText("##SoundLabel", "Sound Effect:");
                         ImGui.SameLine();
                         ImGui.SetNextItemWidth(150f);
-                        var currentSoundEffect = Array.IndexOf(Enum.GetValues<SoundEffect>(), SoundEffect);
-                        if (ImGui.Combo("##Sound", ref currentSoundEffect, Enum.GetNames<SoundEffect>(), Enum.GetNames<SoundEffect>().Length))
+                        var currentSoundEffect = Array.IndexOf(Enum.GetValues<ChatSoundEffect>(), SoundEffect);
+                        if (ImGui.Combo("##Sound", ref currentSoundEffect, Enum.GetNames<ChatSoundEffect>(), Enum.GetNames<ChatSoundEffect>().Length))
                         {
-                            SoundEffect = Enum.GetValues<SoundEffect>()[currentSoundEffect];
+                            SoundEffect = Enum.GetValues<ChatSoundEffect>()[currentSoundEffect];
                             SoundManager.PlaySoundEffect(SoundEffect);
                         }
 

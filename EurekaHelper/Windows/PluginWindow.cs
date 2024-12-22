@@ -921,12 +921,12 @@ namespace EurekaHelper.Windows
             ImGui.NextColumn();
 
             ImGui.SetNextItemWidth(140f);
-            var enumNames = Enum.GetNames<SoundEffect>();
-            var enumValues = Enum.GetValues<SoundEffect>();
-            var enumCurrent = Array.IndexOf(enumValues, EurekaHelper.Config.NMSoundEffect);
+            var enumNames = Enum.GetNames<ChatSoundEffect>();
+            var enumValues = Enum.GetValues<ChatSoundEffect>();
+            var enumCurrent = Array.IndexOf(enumValues, EurekaHelper.Config.NMChatSoundEffect);
             if (ImGui.Combo("NM Sound Effect", ref enumCurrent, enumNames, enumNames.Length))
             {
-                EurekaHelper.Config.NMSoundEffect = enumValues[enumCurrent];
+                EurekaHelper.Config.NMChatSoundEffect = enumValues[enumCurrent];
                 SoundManager.PlaySoundEffect(enumValues[enumCurrent]);
                 save = true;
             }
@@ -934,10 +934,10 @@ namespace EurekaHelper.Windows
             ImGui.NextColumn();
 
             ImGui.SetNextItemWidth(140f);
-            enumCurrent = Array.IndexOf(enumValues, EurekaHelper.Config.BunnySoundEffect);
+            enumCurrent = Array.IndexOf(enumValues, EurekaHelper.Config.BunnyChatSoundEffect);
             if (ImGui.Combo("Bunny Sound Effect", ref enumCurrent, enumNames, enumNames.Length))
             {
-                EurekaHelper.Config.BunnySoundEffect = enumValues[enumCurrent];
+                EurekaHelper.Config.BunnyChatSoundEffect= enumValues[enumCurrent];
                 SoundManager.PlaySoundEffect(enumValues[enumCurrent]);
                 save = true;
             }
