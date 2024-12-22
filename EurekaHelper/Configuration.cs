@@ -29,6 +29,7 @@ namespace EurekaHelper
 
             if (Version < 1)
             {
+                Version = 1;
                 NMChatSoundEffect = SoundEffects.MapOldToNew(NMSoundEffect);
                 BunnyChatSoundEffect = SoundEffects.MapOldToNew(BunnySoundEffect);
             }
