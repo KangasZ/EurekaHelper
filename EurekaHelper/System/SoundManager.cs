@@ -10,7 +10,7 @@ namespace EurekaHelper.System
         {
             unsafe
             {
-                UIGlobals.PlaySoundEffect((uint)soundEffect);
+                UIGlobals.PlayChatSoundEffect((uint)soundEffect);
             }
         }
     }
