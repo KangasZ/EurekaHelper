@@ -941,7 +941,7 @@ namespace EurekaHelper.Windows
                 SoundManager.PlaySoundEffect(enumValues[enumCurrent]);
                 save = true;
             }
-            Utils.SetTooltip("Sound Effect to be played when bunny spawns. Add 36 to the macro sound you want. Example: <se.5> is 5 + 36 = 41");
+            Utils.SetTooltip("Chat Sound Effect to be played when bunny spawns.");
             ImGui.NextColumn();
 
             ImGui.SetNextItemWidth(140f);
