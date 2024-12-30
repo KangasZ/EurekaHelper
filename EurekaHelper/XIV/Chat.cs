@@ -76,7 +76,9 @@ public unsafe class Chat
         if (message.Length != SanitiseText(message).Length)
             throw new ArgumentException("message contained invalid characters", nameof(message));
 
+#pragma warning disable CS0618 // Type or member is obsolete
         SendMessageUnsafe(bytes);
+#pragma warning restore CS0618 // Type or member is obsolete
     }
 
     /// <summary>
