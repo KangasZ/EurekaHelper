@@ -41,7 +41,6 @@ public enum ChatSoundEffect
     SoundEffect14 = 14,
     SoundEffect15 = 15,
     SoundEffect16 = 16,
-    SoundEffect17 = 17
 }
 
 public class SoundEffects
@@ -65,7 +64,7 @@ public class SoundEffects
         { OldSoundEffect.SoundEffect49, ChatSoundEffect.SoundEffect14 },
         { OldSoundEffect.SoundEffect50, ChatSoundEffect.SoundEffect15 },
         { OldSoundEffect.SoundEffect51, ChatSoundEffect.SoundEffect16 },
-        { OldSoundEffect.SoundEffect52, ChatSoundEffect.SoundEffect17 }
+        { OldSoundEffect.SoundEffect52, ChatSoundEffect.SoundEffect1 }
     };
 
     public static ChatSoundEffect MapOldToNew(OldSoundEffect oldSoundEffect)

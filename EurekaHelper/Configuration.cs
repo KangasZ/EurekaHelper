@@ -24,7 +24,6 @@ namespace EurekaHelper
             if (CustomMessages.Count == 0)
             {
                 CustomMessages.Add("/shout %bossName% POP. %flag%");
-                Save();
             }
 
             if (Version < 1)
@@ -33,6 +32,8 @@ namespace EurekaHelper
                 NMChatSoundEffect = SoundEffects.MapOldToNew(NMSoundEffect);
                 BunnyChatSoundEffect = SoundEffects.MapOldToNew(BunnySoundEffect);
             }
+            
+            Save();
         }
 
         /*

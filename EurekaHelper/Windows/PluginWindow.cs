@@ -930,7 +930,7 @@ namespace EurekaHelper.Windows
                 SoundManager.PlaySoundEffect(enumValues[enumCurrent]);
                 save = true;
             }
-            Utils.SetTooltip("Sound Effect to be played when an NM pops. Add 36 to the macro sound you want. Example: <se.5> is 5 + 36 = 41");
+            Utils.SetTooltip("Chat Sound Effect to be played when an NM pops.");
             ImGui.NextColumn();
 
             ImGui.SetNextItemWidth(140f);

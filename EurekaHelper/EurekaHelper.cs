@@ -63,6 +63,7 @@ namespace EurekaHelper;
         [Command("/testshout")]
         private void TestShout(string command, string argument)
         {
+            SoundManager.PlaySoundEffect(Config.NMChatSoundEffect);
             var fate = new EurekaFate(1425, null, 827, 515, "Drink Me", "Bunny Fate 1", "Bunny Fate 1",
                 new Vector2(14.0f, 21.5f), null, Vector2.Zero, EurekaWeather.None, EurekaWeather.None,
                 EurekaElement.Unknown, EurekaElement.Unknown, false, 50, false, true);
