@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace EurekaHelper.XIV;
 
-public enum OldSoundEffect
+public enum BaseSoundEffect
 {
     SoundEffect36 = 0x24,
     SoundEffect37 = 0x25,
@@ -25,69 +25,69 @@ public enum OldSoundEffect
     
 public enum ChatSoundEffect
 {
-    SoundEffect1 = 1,
-    SoundEffect2 = 2,
-    SoundEffect3 = 3,
-    SoundEffect4 = 4,
-    SoundEffect5 = 5,
-    SoundEffect6 = 6,
-    SoundEffect7 = 7,
-    SoundEffect8 = 8,
-    SoundEffect9 = 9,
-    SoundEffect10 = 10,
-    SoundEffect11 = 11,
-    SoundEffect12 = 12,
-    SoundEffect13 = 13,
-    SoundEffect14 = 14,
-    SoundEffect15 = 15,
-    SoundEffect16 = 16,
+    ChatSoundEffect1 = 1,
+    ChatSoundEffect2 = 2,
+    ChatSoundEffect3 = 3,
+    ChatSoundEffect4 = 4,
+    ChatSoundEffect5 = 5,
+    ChatSoundEffect6 = 6,
+    ChatSoundEffect7 = 7,
+    ChatSoundEffect8 = 8,
+    ChatSoundEffect9 = 9,
+    ChatSoundEffect10 = 10,
+    ChatSoundEffect11 = 11,
+    ChatSoundEffect12 = 12,
+    ChatSoundEffect13 = 13,
+    ChatSoundEffect14 = 14,
+    ChatSoundEffect15 = 15,
+    ChatSoundEffect16 = 16,
 }
 
 public class SoundEffects
 {
-    public static ChatSoundEffect MapOldToNew(OldSoundEffect oldSoundEffect)
+    public static ChatSoundEffect MapOldToNew(BaseSoundEffect oldSoundEffect)
     {
         switch (oldSoundEffect)
         {
-            case OldSoundEffect.SoundEffect36:
-                return ChatSoundEffect.SoundEffect1;
-            case OldSoundEffect.SoundEffect37:
-                return ChatSoundEffect.SoundEffect2;
-            case OldSoundEffect.SoundEffect38:
-                return ChatSoundEffect.SoundEffect3;
-            case OldSoundEffect.SoundEffect39:
-                return ChatSoundEffect.SoundEffect4;
-            case OldSoundEffect.SoundEffect40:
-                return ChatSoundEffect.SoundEffect5;
-            case OldSoundEffect.SoundEffect41:
-                return ChatSoundEffect.SoundEffect6;
-            case OldSoundEffect.SoundEffect42:
-                return ChatSoundEffect.SoundEffect7;
-            case OldSoundEffect.SoundEffect43:
-                return ChatSoundEffect.SoundEffect8;
-            case OldSoundEffect.SoundEffect44:
-                return ChatSoundEffect.SoundEffect9;
-            case OldSoundEffect.SoundEffect45:
-                return ChatSoundEffect.SoundEffect10;
-            case OldSoundEffect.SoundEffect46:
-                return ChatSoundEffect.SoundEffect11;
-            case OldSoundEffect.SoundEffect47:
-                return ChatSoundEffect.SoundEffect12;
-            case OldSoundEffect.SoundEffect48:
-                return ChatSoundEffect.SoundEffect13;
-            case OldSoundEffect.SoundEffect49:
-                return ChatSoundEffect.SoundEffect14;
-            case OldSoundEffect.SoundEffect50:
-                return ChatSoundEffect.SoundEffect15;
-            case OldSoundEffect.SoundEffect51:
-                return ChatSoundEffect.SoundEffect16;
-            case OldSoundEffect.SoundEffect52:
-                return ChatSoundEffect.SoundEffect1;
+            case BaseSoundEffect.SoundEffect36:
+                return ChatSoundEffect.ChatSoundEffect1;
+            case BaseSoundEffect.SoundEffect37:
+                return ChatSoundEffect.ChatSoundEffect2;
+            case BaseSoundEffect.SoundEffect38:
+                return ChatSoundEffect.ChatSoundEffect3;
+            case BaseSoundEffect.SoundEffect39:
+                return ChatSoundEffect.ChatSoundEffect4;
+            case BaseSoundEffect.SoundEffect40:
+                return ChatSoundEffect.ChatSoundEffect5;
+            case BaseSoundEffect.SoundEffect41:
+                return ChatSoundEffect.ChatSoundEffect6;
+            case BaseSoundEffect.SoundEffect42:
+                return ChatSoundEffect.ChatSoundEffect7;
+            case BaseSoundEffect.SoundEffect43:
+                return ChatSoundEffect.ChatSoundEffect8;
+            case BaseSoundEffect.SoundEffect44:
+                return ChatSoundEffect.ChatSoundEffect9;
+            case BaseSoundEffect.SoundEffect45:
+                return ChatSoundEffect.ChatSoundEffect10;
+            case BaseSoundEffect.SoundEffect46:
+                return ChatSoundEffect.ChatSoundEffect11;
+            case BaseSoundEffect.SoundEffect47:
+                return ChatSoundEffect.ChatSoundEffect12;
+            case BaseSoundEffect.SoundEffect48:
+                return ChatSoundEffect.ChatSoundEffect13;
+            case BaseSoundEffect.SoundEffect49:
+                return ChatSoundEffect.ChatSoundEffect14;
+            case BaseSoundEffect.SoundEffect50:
+                return ChatSoundEffect.ChatSoundEffect15;
+            case BaseSoundEffect.SoundEffect51:
+                return ChatSoundEffect.ChatSoundEffect16;
+            case BaseSoundEffect.SoundEffect52:
+                return ChatSoundEffect.ChatSoundEffect1;
             default:
                 var soundEffectId = (uint)oldSoundEffect;
                 if (soundEffectId is < 1 or > 16)
                 {
-                    return ChatSoundEffect.SoundEffect1;
+                    return ChatSoundEffect.ChatSoundEffect1;
                 }
 
                 return (ChatSoundEffect)soundEffectId;

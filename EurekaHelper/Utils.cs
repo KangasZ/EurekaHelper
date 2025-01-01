@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using Lumina.Data.Parsing.Layer;
 using Lumina.Data.Files;
 using Dalamud.Utility;
+using EurekaHelper.System;
 using EurekaHelper.XIV;
 using EurekaHelper.XIV.Zones;
 using Lumina.Excel.Sheets;
@@ -398,5 +399,26 @@ namespace EurekaHelper
         public static string GetVersion() => Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "Unable to get version";
 
         //public static string GetGitSha() => Assembly.GetExecutingAssembly()?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "Unable to get Git Hash";
+        
+        public static bool EnumSelector<T>(string label, string? tooltipMessage, ref T enumValue) where T : Enum
+        {
+            var saved = false;
+            var enumType = typeof(T);
+            var enumNames = Enum.GetNames(enumType);
+            var enumValues = Enum.GetValues(enumType);
+            var enumCurrent = Array.IndexOf(enumValues, enumValue);
+            if (ImGui.Combo(label, ref enumCurrent, enumNames, enumNames.Length))
+            {
+                enumValue = (T)enumValues.GetValue(enumCurrent);
+                saved = true;
+            }
+
+            if (tooltipMessage != null)
+            {
+                SetTooltip(tooltipMessage);
+            }
+
+            return saved;
+        }
     }
 }

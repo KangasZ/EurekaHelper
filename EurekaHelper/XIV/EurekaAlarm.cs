@@ -20,7 +20,7 @@ namespace EurekaHelper.XIV
     {
         public string ID { get; set; }
         public string Name { get; set; }
-        public OldSoundEffect SoundEffect { get; set; }
+        public BaseSoundEffect SoundEffect { get; set; }
         public ChatSoundEffect ChatSoundEffect { get; set; }
         public AlarmType Type { get; set; }
         public TimeType TimeType { get; set; }

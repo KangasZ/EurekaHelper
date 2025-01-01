@@ -33,7 +33,8 @@ namespace EurekaHelper.Windows
         private AlarmType AlarmType = AlarmType.Weather;
         private TimeType TimeType = TimeType.Day;
         private EurekaWeather WeatherType = EurekaWeather.FairSkies;
-        private ChatSoundEffect ChatSoundEffect = ChatSoundEffect.SoundEffect10;
+        private BaseSoundEffect SoundEffect = BaseSoundEffect.SoundEffect45;
+        private ChatSoundEffect ChatSoundEffect = ChatSoundEffect.ChatSoundEffect10;
         private ushort AlarmZone = 732;
         private int MinutesBefore = 5;
 
@@ -57,7 +58,8 @@ namespace EurekaHelper.Windows
                     AlarmType = AlarmType.Weather;
                     TimeType = TimeType.Day;
                     WeatherType = EurekaWeather.FairSkies;
-                    ChatSoundEffect = ChatSoundEffect.SoundEffect10;
+                    SoundEffect = BaseSoundEffect.SoundEffect45;
+                    ChatSoundEffect = ChatSoundEffect.ChatSoundEffect10;
                     AlarmZone = 732;
                     MinutesBefore = 5;
 
@@ -130,11 +132,20 @@ namespace EurekaHelper.Windows
                 ImGui.LabelText("##SoundLabel", "Sound Effect:"); 
                 ImGui.SameLine(); 
                 ImGui.SetNextItemWidth(150f);
-                var currentSoundEffect = Array.IndexOf(Enum.GetValues<ChatSoundEffect>(), ChatSoundEffect);
-                if (ImGui.Combo("##Sound", ref currentSoundEffect, Enum.GetNames<ChatSoundEffect>(), Enum.GetNames<ChatSoundEffect>().Length))
+                var useChatSoundEffect = EurekaHelper.Config.GlobalUseChatSoundEffect;
+                if (useChatSoundEffect)
                 {
-                    ChatSoundEffect = Enum.GetValues<ChatSoundEffect>()[currentSoundEffect];
-                    SoundManager.PlaySoundEffect(ChatSoundEffect);
+                    if (Utils.EnumSelector("##SoundChat", null, ref ChatSoundEffect))
+                    {
+                        SoundManager.PlaySoundEffect(ChatSoundEffect);
+                    }
+                }
+                else
+                {
+                    if (Utils.EnumSelector("##Sound", null, ref SoundEffect))
+                    {
+                        SoundManager.PlaySoundEffect(SoundEffect);
+                    }
                 }
 
                 ImGui.SetNextItemWidth(LabelSize);
@@ -385,11 +396,20 @@ namespace EurekaHelper.Windows
                         ImGui.LabelText("##SoundLabel", "Sound Effect:");
                         ImGui.SameLine();
                         ImGui.SetNextItemWidth(150f);
-                        var currentSoundEffect = Array.IndexOf(Enum.GetValues<ChatSoundEffect>(), ChatSoundEffect);
-                        if (ImGui.Combo("##Sound", ref currentSoundEffect, Enum.GetNames<ChatSoundEffect>(), Enum.GetNames<ChatSoundEffect>().Length))
+                        var useChatSoundEffect = EurekaHelper.Config.GlobalUseChatSoundEffect;
+                        if (useChatSoundEffect)
                         {
-                            ChatSoundEffect = Enum.GetValues<ChatSoundEffect>()[currentSoundEffect];
-                            SoundManager.PlaySoundEffect(ChatSoundEffect);
+                            if (Utils.EnumSelector("##SoundChat", null, ref ChatSoundEffect))
+                            {
+                                SoundManager.PlaySoundEffect(ChatSoundEffect);
+                            }
+                        }
+                        else
+                        {
+                            if (Utils.EnumSelector("##Sound", null, ref SoundEffect))
+                            {
+                                SoundManager.PlaySoundEffect(SoundEffect);
+                            }
                         }
 
                         ImGui.SetNextItemWidth(LabelSize);
@@ -417,11 +437,12 @@ namespace EurekaHelper.Windows
 
         private EurekaAlarm CreateAlarm() => new()
         {
-            Name = !string.IsNullOrEmpty(AlarmName) ? AlarmName : "Unamed",
+            Name = !string.IsNullOrEmpty(AlarmName) ? AlarmName : "Unnamed",
             Type = AlarmType,
             ZoneId = AlarmType == AlarmType.Weather ? AlarmZone : (ushort)0,
             Weather = AlarmType == AlarmType.Weather ? WeatherType : 0,
             TimeType = AlarmType == AlarmType.Time ? TimeType : 0,
+            SoundEffect = SoundEffect,
             ChatSoundEffect = ChatSoundEffect,
             MinutesOffset = MinutesBefore
         };

@@ -1,4 +1,5 @@
-﻿using Dalamud.Game.Text;
+﻿using System;
+using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Interface.Windowing;
 using Dalamud.Plugin;
@@ -60,10 +61,18 @@ namespace EurekaHelper;
         }
 
 #if DEBUG
-        [Command("/testshout")]
+        [Command("/testeh")]
         private void TestShout(string command, string argument)
         {
-            SoundManager.PlaySoundEffect(Config.NMChatSoundEffect);
+            if (argument.Equals("bunny", StringComparison.InvariantCultureIgnoreCase))
+            {
+                SoundManager.PlayBunnySoundEffect();
+            }
+            else
+            {
+                SoundManager.PlayNMSoundEffect();
+            }
+
             var fate = new EurekaFate(1425, null, 827, 515, "Drink Me", "Bunny Fate 1", "Bunny Fate 1",
                 new Vector2(14.0f, 21.5f), null, Vector2.Zero, EurekaWeather.None, EurekaWeather.None,
                 EurekaElement.Unknown, EurekaElement.Unknown, false, 50, false, true);

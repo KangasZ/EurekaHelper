@@ -895,7 +895,8 @@ namespace EurekaHelper.Windows
             ImGui.Columns(2, null, true);
 
             var save = false;
-
+            var useChatSoundEffect = EurekaHelper.Config.GlobalUseChatSoundEffect;
+            
             save |= ImGui.Checkbox("Display NM Pop", ref EurekaHelper.Config.DisplayFatePop);
             Utils.SetTooltip("Displays the NM that popped in chat");
             ImGui.NextColumn();
@@ -921,52 +922,75 @@ namespace EurekaHelper.Windows
             ImGui.NextColumn();
 
             ImGui.SetNextItemWidth(140f);
-            var enumNames = Enum.GetNames<ChatSoundEffect>();
-            var enumValues = Enum.GetValues<ChatSoundEffect>();
-            var enumCurrent = Array.IndexOf(enumValues, EurekaHelper.Config.NMChatSoundEffect);
-            if (ImGui.Combo("NM Sound Effect", ref enumCurrent, enumNames, enumNames.Length))
+            if (useChatSoundEffect)
             {
-                EurekaHelper.Config.NMChatSoundEffect = enumValues[enumCurrent];
-                SoundManager.PlaySoundEffect(enumValues[enumCurrent]);
-                save = true;
+                var soundEffect = EurekaHelper.Config.NMChatSoundEffect;
+                if (Utils.EnumSelector("NM Sound Effect", "Chat Sound Effect to be played when an NM pops.",
+                        ref soundEffect))
+                {
+                    save = true;
+                    EurekaHelper.Config.NMChatSoundEffect = soundEffect;
+                    SoundManager.PlayNMSoundEffect();
+                }
             }
-            Utils.SetTooltip("Chat Sound Effect to be played when an NM pops.");
+            else
+            {
+                var nmSoundEffect = EurekaHelper.Config.NMSoundEffect;
+                if (Utils.EnumSelector("NM Sound Effect", "Sound Effect to be played when an NM pops.",
+                        ref nmSoundEffect))
+                {
+                    save = true;
+                    EurekaHelper.Config.NMSoundEffect = nmSoundEffect;
+                    SoundManager.PlayNMSoundEffect();
+                }
+            }
+
             ImGui.NextColumn();
 
             ImGui.SetNextItemWidth(140f);
-            enumCurrent = Array.IndexOf(enumValues, EurekaHelper.Config.BunnyChatSoundEffect);
-            if (ImGui.Combo("Bunny Sound Effect", ref enumCurrent, enumNames, enumNames.Length))
+            if (useChatSoundEffect)
             {
-                EurekaHelper.Config.BunnyChatSoundEffect= enumValues[enumCurrent];
-                SoundManager.PlaySoundEffect(enumValues[enumCurrent]);
-                save = true;
+                var soundEffect = EurekaHelper.Config.BunnyChatSoundEffect;
+                if (Utils.EnumSelector("Bunny Sound Effect", "Sound Effect to be played when bunny spawns.",
+                        ref soundEffect))
+                {
+                    save = true;
+                    EurekaHelper.Config.BunnyChatSoundEffect = soundEffect;
+                    SoundManager.PlayBunnySoundEffect();
+                }
             }
-            Utils.SetTooltip("Chat Sound Effect to be played when bunny spawns.");
+            else
+            {
+                var soundEffect = EurekaHelper.Config.BunnySoundEffect;
+                if (Utils.EnumSelector("Bunny Sound Effect", "Sound Effect to be played when bunny spawns.",
+                        ref soundEffect))
+                {
+                    save = true;
+                    EurekaHelper.Config.BunnySoundEffect = soundEffect;
+                    SoundManager.PlayBunnySoundEffect();
+                }
+            }
             ImGui.NextColumn();
 
             ImGui.SetNextItemWidth(140f);
-            enumNames = Enum.GetNames<PayloadOptions>();
-            var poValues = Enum.GetValues<PayloadOptions>();
-            enumCurrent = Array.IndexOf(poValues, EurekaHelper.Config.PayloadOptions);
-            if (ImGui.Combo("Payload Options", ref enumCurrent, enumNames, enumNames.Length))
+            var payloadOption = EurekaHelper.Config.PayloadOptions;
+            if (Utils.EnumSelector("Payload Options", "Sets what the clickable payload does.\n" +
+                                                      "For example: Setting it to \'ShoutToChat\' will shout the pop when you click the button in chat.",
+                    ref payloadOption))
             {
-                EurekaHelper.Config.PayloadOptions = poValues[enumCurrent];
                 save = true;
+                EurekaHelper.Config.PayloadOptions = payloadOption;
             }
-            Utils.SetTooltip("Sets what the clickable payload does.\n" +
-                "For example: Setting it to \'ShoutToChat\' will shout the pop when you click the button in chat.");
             ImGui.NextColumn();
 
             ImGui.SetNextItemWidth(140f);
-            enumNames = Enum.GetNames<XivChatType>();
-            var chValues = Enum.GetValues<XivChatType>();
-            enumCurrent = Array.IndexOf(chValues, EurekaHelper.Config.ChatChannel);
-            if (ImGui.Combo("Chat Channel", ref enumCurrent, enumNames, enumNames.Length))
+            var xivChatType = EurekaHelper.Config.ChatChannel;
+            if (Utils.EnumSelector("Chat Channels", "Set the channel which the plugin messages will display. Default: Echo",
+                    ref xivChatType))
             {
-                EurekaHelper.Config.ChatChannel = chValues[enumCurrent];
                 save = true;
+                EurekaHelper.Config.ChatChannel = xivChatType;
             }
-            Utils.SetTooltip("Set the channel which the plugin messages will display. Default: Echo");
             ImGui.NextColumn();
 
             save |= ImGui.Checkbox("Randomize Map Coords", ref EurekaHelper.Config.RandomizeMapCoords);
@@ -985,6 +1009,10 @@ namespace EurekaHelper.Windows
 
             save |= ImGui.Checkbox("Show Level On Tracker", ref EurekaHelper.Config.ShowLevelInTrackerTable);
             Utils.SetTooltip("Will show the level of a given NM in the tracker table.");
+            ImGui.NextColumn();
+            
+            save |= ImGui.Checkbox("Use Chat Sound Effects", ref EurekaHelper.Config.GlobalUseChatSoundEffect);
+            Utils.SetTooltip("This option can be enabled to use the chat sound effects instead of the other sound effects.\nThis option is active for ALL sound effects and will not overwrite your previous selections, however you will need to reset the sound effects.");
             ImGui.NextColumn();
             
             ImGui.Columns(1);
