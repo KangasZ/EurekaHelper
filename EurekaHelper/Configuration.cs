@@ -29,9 +29,6 @@ namespace EurekaHelper
             if (Version < 3)
             {
                 Version = 3;
-                NMChatSoundEffect = SoundEffects.MapOldToNew(NMSoundEffect);
-                BunnyChatSoundEffect = SoundEffects.MapOldToNew(BunnySoundEffect);
-                Alarms.ForEach(x => x.ChatSoundEffect = SoundEffects.MapOldToNew(x.SoundEffect));
             }
             
             if (!Enum.IsDefined(typeof(ChatSoundEffect), NMChatSoundEffect))

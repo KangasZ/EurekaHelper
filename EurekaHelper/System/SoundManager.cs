@@ -47,7 +47,7 @@ namespace EurekaHelper.System
         {
             if (!Enum.IsDefined(typeof(BaseSoundEffect), soundEffect))
             {
-                DalamudApi.Log.Error($"Invalid sound effect ID sent to SoundManager, report this to the plugin creator: {soundEffect}");
+                DalamudApi.Log.Error($"Invalid sound effect ID sent to SoundManager, silently failing. Report this to the plugin creator: {soundEffect}");
                 soundEffect = BaseSoundEffect.SoundEffect36;
             }
             
@@ -58,7 +58,7 @@ namespace EurekaHelper.System
         {
             if (!Enum.IsDefined(typeof(ChatSoundEffect), soundEffect))
             {
-                DalamudApi.Log.Error($"Invalid sound effect ID sent to SoundManager, report this to the plugin creator: {soundEffect}");
+                DalamudApi.Log.Error($"Invalid sound effect ID sent to SoundManager, silently failing. report this to the plugin creator: {soundEffect}");
                 soundEffect = ChatSoundEffect.ChatSoundEffect1;
             }
 
