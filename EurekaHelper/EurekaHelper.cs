@@ -64,45 +64,50 @@ namespace EurekaHelper;
         [Command("/testeh")]
         private void TestShout(string command, string argument)
         {
-            if (argument.Equals("bunny", StringComparison.InvariantCultureIgnoreCase))
-            {
-                SoundManager.PlayBunnySoundEffect();
-            }
-            else
-            {
-                SoundManager.PlayNMSoundEffect();
-            }
-
-            var fate = new EurekaFate(1425, null, 827, 515, "Drink Me", "Bunny Fate 1", "Bunny Fate 1",
+            var useGlobalChat = Config.GlobalUseChatSoundEffect;
+            var showBunnyFate = Config.DisplayBunnyFates;
+            var payload = Config.PayloadOptions;
+            var delayTicks = 1;
+            var delay = TimeSpan.FromMilliseconds(500);
+            
+            Config.DisplayBunnyFates = true;
+            Config.GlobalUseChatSoundEffect = true;
+            PrintMessage("[EH Test] Chat, then base");
+            var bunnyfate = new EurekaFate(1425, null, 827, 515, "Test", "Bunny Boss", "Bun",
                 new Vector2(14.0f, 21.5f), null, Vector2.Zero, EurekaWeather.None, EurekaWeather.None,
                 EurekaElement.Unknown, EurekaElement.Unknown, false, 50, false, true);
+            var realfate = new EurekaFate(1425, null, 827, 515, "Test", "Madge Boss", "Madge",
+                new Vector2(14.0f, 21.5f), null, Vector2.Zero, EurekaWeather.None, EurekaWeather.None,
+                EurekaElement.Unknown, EurekaElement.Unknown, false, 50, false, false);
             
-            DalamudApi.PluginInterface.RemoveChatLinkHandler(fate.FateId);
-
-            var sb = new SeStringBuilder()
-                .AddText($"Test: ")
-                .Append(Utils.MapLink(fate.TerritoryId, fate.MapId, fate.FatePosition));
-            DalamudLinkPayload payload = DalamudApi.PluginInterface.AddChatLinkHandler(fate.FateId, (i, m) =>
+            DalamudApi.Framework.RunOnTick(() => FateManager.DisplayFatePop(bunnyfate), delay * delayTicks++);
+            DalamudApi.Framework.RunOnTick(() =>
             {
-                Utils.SetFlagMarker(fate, randomizeCoords: EurekaHelper.Config.RandomizeMapCoords);
-                
-                Utils.SendMessage(Utils.RandomFormattedText(fate));
-            });
+                Config.PayloadOptions = PayloadOptions.Nothing;
+                FateManager.DisplayFatePop(realfate);
+            }, delay * delayTicks++);
+            DalamudApi.Framework.RunOnTick(() => FateManager.DisplayFatePop(bunnyfate), delay * delayTicks++);
 
-            var text = EurekaHelper.Config.PayloadOptions switch
+            DalamudApi.Framework.RunOnTick(() => { Config.GlobalUseChatSoundEffect = false; }, delay * delayTicks++);
+
+            DalamudApi.Framework.RunOnTick(() =>
             {
-                PayloadOptions.ShoutToChat => "shout",
-                PayloadOptions.CopyToClipboard => "copy",
-                _ => "shout"
-            };
+                Config.PayloadOptions = PayloadOptions.CopyToClipboard;
+                FateManager.DisplayFatePop(realfate);
+            }, delay * delayTicks++);
 
-            sb.AddText(" ");
-            sb.AddUiForeground(32);
-            sb.Add(payload);
-            sb.AddText($"[Click to {text}]");
-            sb.Add(RawPayload.LinkTerminator);
-            sb.AddUiForegroundOff();
-            EurekaHelper.PrintMessage(sb.BuiltString);
+            DalamudApi.Framework.RunOnTick(() =>
+            {
+                Config.PayloadOptions = PayloadOptions.ShoutToChat;
+                FateManager.DisplayFatePop(realfate);
+            }, delay * delayTicks++);
+            
+            DalamudApi.Framework.RunOnTick(() =>
+            {
+                Config.DisplayBunnyFates = showBunnyFate;
+                Config.GlobalUseChatSoundEffect = useGlobalChat;
+                Config.PayloadOptions = payload;
+            }, delay * delayTicks++);
         }
 #endif
 

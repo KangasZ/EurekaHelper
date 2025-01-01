@@ -86,7 +86,7 @@ namespace EurekaHelper.System
             lastFates = DalamudApi.FateTable.ToList();
         }
 
-        private static void DisplayFatePop(EurekaFate fate)
+        public static void DisplayFatePop(EurekaFate fate)
         {
             var sb = new SeStringBuilder()
                 .AddText($"{fate.BossName}: ")
