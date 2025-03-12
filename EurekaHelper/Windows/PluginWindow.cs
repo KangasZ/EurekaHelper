@@ -444,7 +444,7 @@ namespace EurekaHelper.Windows
         private string TimeAgoHours = "0";
         private string TimeAgoMinutes = "0";
         private bool IsEditing = false;
-        public void DrawTracker()
+        private void DrawTracker()
         {
             var zoneFates = Connection.GetTracker()?.GetFates().Where(x => x.IncludeInTracker).ToList();
             if (zoneFates is null)
