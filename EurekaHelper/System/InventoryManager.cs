@@ -69,7 +69,7 @@ namespace EurekaHelper.System
                         if (inventory == null)
                             continue;
 
-                        if (inventory->Loaded == 0)
+                        if (inventory->IsLoaded == false)
                             continue;
 
                         totalCount += inventoryManger->GetItemCountInContainer(item.Key, inventoryType);
