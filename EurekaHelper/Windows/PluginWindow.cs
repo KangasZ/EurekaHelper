@@ -460,14 +460,6 @@ namespace EurekaHelper.Windows
                 var specsCount = sortSpecs.SpecsCount;
                 if (specsCount > 0)
                 {
-                    /*
-                     *                     ImGui.TableSetupColumn("Lv", levelTableColumnFlags);
-                    ImGui.TableSetupColumn("NM", ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoSort);
-                    ImGui.TableSetupColumn("Spawned By", ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoSort);
-                    ImGui.TableSetupColumn("Popped At", ImGuiTableColumnFlags.NoSort);
-                    ImGui.TableSetupColumn("Respawn In");
-                    ImGui.TableSetupColumn("Reset All", ImGuiTableColumnFlags.WidthStretch | ImGuiTableColumnFlags.NoSort);
-                     */
                     switch (sortSpecs.Specs.ColumnIndex, sortSpecs.Specs.SortDirection)
                     {
                         case (0, ImGuiSortDirection.Ascending):
