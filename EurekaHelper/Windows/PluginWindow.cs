@@ -221,7 +221,7 @@ namespace EurekaHelper.Windows
                     var weatherForecast = Connection.GetTracker().GetAllNextWeatherTime();
                     foreach (var (Weather, Time) in weatherForecast)
                     {
-                        ImGui.TextColored(new Vector4(1.0f, 0.4f, 1.0f, 1.0f), Weather.ToFriendlyString()); ImGui.SameLine(0.0f, ImGui.GetStyle().ItemInnerSpacing.X);
+                        ImGui.TextColored(PurpleColorText, Weather.ToFriendlyString()); ImGui.SameLine(0.0f, ImGui.GetStyle().ItemInnerSpacing.X);
                         ImGui.Text($"in: {(Time.ToString(Time.Hours > 0 ? "hh'h 'mm'm 'ss's'" : "mm'm 'ss's'"))}");
                     }
 
@@ -363,14 +363,14 @@ namespace EurekaHelper.Windows
                 var numColumns = 6;
                 if (ImGui.BeginTable("TrackerTable", numColumns, ImGuiTableFlags.Resizable | ImGuiTableFlags.BordersInnerH | ImGuiTableFlags.BordersV | ImGuiTableFlags.NoBordersInBody | ImGuiTableFlags.ScrollY | ImGuiTableFlags.NoSavedSettings | ImGuiTableFlags.Sortable | ImGuiTableFlags.SortTristate))
                 {
-                    var levelTableColumnFlags = ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoSort;
+                    var levelTableColumnFlags = ImGuiTableColumnFlags.WidthFixed;
                     if (!EurekaHelper.Config.ShowLevelInTrackerTable)
                         levelTableColumnFlags |= ImGuiTableColumnFlags.Disabled; 
 
                     ImGui.TableSetupColumn("Lv", levelTableColumnFlags);
-                    ImGui.TableSetupColumn("NM", ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoSort);
-                    ImGui.TableSetupColumn("Spawned By", ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoSort);
-                    ImGui.TableSetupColumn("Popped At", ImGuiTableColumnFlags.NoSort);
+                    ImGui.TableSetupColumn("NM", ImGuiTableColumnFlags.WidthFixed);
+                    ImGui.TableSetupColumn("Spawned By", ImGuiTableColumnFlags.WidthFixed);
+                    ImGui.TableSetupColumn("Popped At");
                     ImGui.TableSetupColumn("Respawn In");
                     ImGui.TableSetupColumn("Reset All", ImGuiTableColumnFlags.WidthStretch | ImGuiTableColumnFlags.NoSort);
                     ImGui.TableSetupScrollFreeze(0, 1);
@@ -440,6 +440,7 @@ namespace EurekaHelper.Windows
         static readonly Vector4 GreenColorText = new(0.33f, 0.76f, 0.67f, 1f);
         static readonly Vector4 RedColorText = new(0.82f, 0.49f, 0.49f, 1f);
         static readonly Vector4 OrangeColorText = new(0.9f, 0.52f, 0f, 1f);
+        static readonly Vector4 PurpleColorText = new Vector4(1.0f, 0.4f, 1.0f, 1.0f);
 
         private string TimeAgoHours = "0";
         private string TimeAgoMinutes = "0";
@@ -459,21 +460,56 @@ namespace EurekaHelper.Windows
                 var specsCount = sortSpecs.SpecsCount;
                 if (specsCount > 0)
                 {
-                    switch (sortSpecs.Specs.SortDirection)
+                    /*
+                     *                     ImGui.TableSetupColumn("Lv", levelTableColumnFlags);
+                    ImGui.TableSetupColumn("NM", ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoSort);
+                    ImGui.TableSetupColumn("Spawned By", ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoSort);
+                    ImGui.TableSetupColumn("Popped At", ImGuiTableColumnFlags.NoSort);
+                    ImGui.TableSetupColumn("Respawn In");
+                    ImGui.TableSetupColumn("Reset All", ImGuiTableColumnFlags.WidthStretch | ImGuiTableColumnFlags.NoSort);
+                     */
+                    switch (sortSpecs.Specs.ColumnIndex, sortSpecs.Specs.SortDirection)
                     {
-                        case ImGuiSortDirection.Ascending:
-                            zoneFates = zoneFates.OrderBy(x => x.IsPopped())
-                                .ThenBy(x => x.SpawnByRequiredWeather != EurekaWeather.None && x.SpawnByRequiredWeather != Connection.GetTracker().GetCurrentWeatherInfo().Weather)
-                                .ThenBy(x => x.SpawnRequiredWeather != EurekaWeather.None && x.SpawnRequiredWeather != Connection.GetTracker().GetCurrentWeatherInfo().Weather)
-                                .ThenBy(x => x.SpawnByRequiredNight && EorzeaTime.Now.EorzeaDateTime.Hour >= 6 && EorzeaTime.Now.EorzeaDateTime.Hour < 19)
+                        case (0, ImGuiSortDirection.Ascending):
+                            zoneFates = zoneFates.OrderBy(x => x.FateLevel).ToList();
+                            break;
+                        case (0, ImGuiSortDirection.Descending):
+                            zoneFates = zoneFates.OrderByDescending(x => x.FateLevel).ToList();
+                            break;
+                        case (1, ImGuiSortDirection.Ascending):
+                            zoneFates = zoneFates.OrderBy(x => x.BossName).ToList();
+                            break;
+                        case (1, ImGuiSortDirection.Descending):
+                            zoneFates = zoneFates.OrderByDescending(x => x.BossName).ToList();
+                            break;
+                        case (2, ImGuiSortDirection.Ascending):
+                            zoneFates = zoneFates.OrderBy(x => x.SpawnedBy).ToList();
+                            break;
+                        case (2, ImGuiSortDirection.Descending):
+                            zoneFates = zoneFates.OrderByDescending(x => x.SpawnedBy).ToList();
+                            break;
+                        case (3, ImGuiSortDirection.Ascending):
+                            zoneFates = zoneFates.OrderBy(x => x.IsPopped()).ThenBy(x => x.GetRespawnTimeleft()).ThenBy(x => x.FateLevel).ToList();
+                            break;
+                        case (3, ImGuiSortDirection.Descending):
+                            zoneFates = zoneFates.OrderBy(x => !x.IsPopped()).ThenByDescending(x => x.GetRespawnTimeleft()).ThenBy(x => x.FateLevel).ToList();
+                            break;
+                        case (4, ImGuiSortDirection.Ascending):
+                            zoneFates = zoneFates
+                                .OrderBy(x => 
+                                    x.GetRespawnRequirements(Connection.GetTracker())
+                                        .OrderBy(y => !y.Action.Equals("Respawn"))
+                                        .ThenByDescending(y => y.Time)
+                                        .FirstOrDefault().Time)
                                 .ToList();
                             break;
-
-                        case ImGuiSortDirection.Descending:
-                            zoneFates = zoneFates.OrderByDescending(x => x.IsPopped())
-                                .ThenByDescending(x => x.SpawnByRequiredWeather != EurekaWeather.None && x.SpawnByRequiredWeather != Connection.GetTracker().GetCurrentWeatherInfo().Weather)
-                                .ThenByDescending(x => x.SpawnRequiredWeather != EurekaWeather.None && x.SpawnRequiredWeather != Connection.GetTracker().GetCurrentWeatherInfo().Weather)
-                                .ThenByDescending(x => x.SpawnByRequiredNight && EorzeaTime.Now.EorzeaDateTime.Hour >= 6 && EorzeaTime.Now.EorzeaDateTime.Hour < 19)
+                        case (4, ImGuiSortDirection.Descending):
+                            zoneFates = zoneFates
+                                .OrderByDescending(x => 
+                                    x.GetRespawnRequirements(Connection.GetTracker())
+                                        .OrderBy(y => !y.Action.Equals("Respawn"))
+                                        .ThenByDescending(y => y.Time)
+                                        .FirstOrDefault().Time)
                                 .ToList();
                             break;
                     }
@@ -505,7 +541,7 @@ namespace EurekaHelper.Windows
                     {
                         ImGui.Text("Weather Required:");
                         ImGui.SameLine(0.0f, spacing);
-                        ImGui.TextColored(new Vector4(1.0f, 0.4f, 1.0f, 1.0f), fate.SpawnRequiredWeather.ToFriendlyString());
+                        ImGui.TextColored(PurpleColorText, fate.SpawnRequiredWeather.ToFriendlyString());
                     }
                     ImGui.EndTooltip();
 
@@ -534,7 +570,7 @@ namespace EurekaHelper.Windows
                     {
                         ImGui.Text("Weather Required:");
                         ImGui.SameLine(0.0f, spacing);
-                        ImGui.TextColored(new Vector4(1.0f, 0.4f, 1.0f, 1.0f), fate.SpawnByRequiredWeather.ToFriendlyString());
+                        ImGui.TextColored(PurpleColorText, fate.SpawnByRequiredWeather.ToFriendlyString());
                     }
 
                     ImGui.EndTooltip();
@@ -615,45 +651,31 @@ namespace EurekaHelper.Windows
                 }
 
                 // Respawn In:
-                // Are as follow:
-                // 1. Check if is popped, display time remaining
-                // 2. Else, check if spawn mob requires weather
-                // 3. Else, check if spawn mob requires night
-                // 4. Else, check if fate requires weather
-                // 5. Else, it's ready to be spawned
                 ImGui.TableNextColumn();
-                List<(string Action, string Time)> respawnRequirements = new(); // Format = {weather/day} #in: #{time}
-                if (fate.IsPopped())
-                {
-                    respawnRequirements.Add(("Respawn", $"{(int)fate.GetRespawnTimeleft().TotalMinutes}m {fate.GetRespawnTimeleft().Seconds}s"));
-                }
+                var respawnRequirementsUnformatted = fate.GetRespawnRequirements(Connection.GetTracker());
 
-                if (fate.SpawnByRequiredWeather != EurekaWeather.None && fate.SpawnByRequiredWeather != Connection.GetTracker().GetCurrentWeatherInfo().Weather)
-                {
-                    var (Weather, Time) = Connection.GetTracker().GetAllNextWeatherTime().Single(x => x.Weather == fate.SpawnByRequiredWeather);
-                    respawnRequirements.Add((Weather.ToFriendlyString(), Time.ToString(Time.Hours > 0 ? "hh'h 'mm'm 'ss's'" : "mm'm 'ss's'")));
-
-                }
-                else if (fate.SpawnRequiredWeather != EurekaWeather.None && fate.SpawnRequiredWeather != Connection.GetTracker().GetCurrentWeatherInfo().Weather)
-                {
-                    var (Weather, Time) = Connection.GetTracker().GetAllNextWeatherTime().Single(x => x.Weather == fate.SpawnRequiredWeather);
-                    respawnRequirements.Add((Weather.ToFriendlyString(), Time.ToString(Time.Hours > 0 ? "hh'h 'mm'm 'ss's'" : "mm'm 'ss's'")));
-                }
-
-                if (fate.SpawnByRequiredNight && EorzeaTime.Now.EorzeaDateTime.Hour >= 6 && EorzeaTime.Now.EorzeaDateTime.Hour < 19)
-                    respawnRequirements.Add(("Night", $"{EorzeaTime.Now.TimeUntilNight():mm'm 'ss's'}"));
-
-                if (respawnRequirements.Count == 0)
+                var respawnRequirements = respawnRequirementsUnformatted.Select(requirement => (requirement.Action, Time: requirement.Time.ToString(requirement.Time.Hours > 0 ? "hh'h 'mm'm 'ss's'" : "mm'm 'ss's'"))).ToArray();
+                
+                if (respawnRequirements.Length == 0)
                 {
                     Utils.RightAlignTextInColumn("Ready", GreenColorText);
                 }
                 else
                 {
                     Vector4 colorText;
-                    if (respawnRequirements[0].Action == "Respawn")
-                        colorText = RedColorText;
-                    else
+                    if (respawnRequirements[0].Action.Equals("Respawn"))
+                    {
+                        if (respawnRequirements[0].Action.Equals("Respawn") && respawnRequirements.Length > 1)
+                        {
+                            colorText = PurpleColorText;
+                        }
+                        else
+                        {
+                            colorText = RedColorText;
+                        }
+                    }else{
                         colorText = OrangeColorText;
+                    }
 
                     Utils.RightAlignTextInColumn(respawnRequirements[0].Time, colorText);
                     if (ImGui.IsItemHovered())
@@ -662,21 +684,28 @@ namespace EurekaHelper.Windows
                         ImGui.PushStyleColor(ImGuiCol.Border, ImGui.GetColorU32(ImGuiCol.TabActive));
 
                         ImGui.BeginTooltip();
-                        foreach (var (Action, Time) in respawnRequirements)
+                        foreach (var (action, time) in respawnRequirements)
                         {
-                            if (Action == "Respawn")
+                            if (action == "Respawn")
                             {
-                                ImGui.Text($"{Action} in: {Time}");
+                                ImGui.Text($"{action} in: {time}");
                             }
-                            else if (Action == "Night")
+                            else if (action == "Night")
                             {
-                                ImGui.Text($"{Action} in: {Time}");
+                                ImGui.Text($"{action} in: {time}");
                             }
                             else
                             {
-                                ImGui.TextColored(new Vector4(1.0f, 0.4f, 1.0f, 1.0f), Action); ImGui.SameLine(0.0f, ImGui.GetStyle().ItemInnerSpacing.X);
-                                ImGui.Text($"in: {Time}");
+                                ImGui.TextColored(GreenColorText, action); ImGui.SameLine(0.0f, ImGui.GetStyle().ItemInnerSpacing.X);
+                                ImGui.Text($"in: {time}");
                             }
+                        }
+
+                        if (colorText == PurpleColorText)
+                        {
+                            ImGui.TextColored(PurpleColorText, "Note:");
+                            ImGui.SameLine(0.0f, ImGui.GetStyle().ItemInnerSpacing.X);
+                            ImGui.Text("Respawn time may be wrong due to other conditions");
                         }
                         ImGui.EndTooltip();
 

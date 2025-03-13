@@ -1,5 +1,7 @@
 ﻿using System.Numerics;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EurekaHelper.XIV
 {
@@ -52,6 +54,39 @@ namespace EurekaHelper.XIV
         public bool IsPopped() => KilledAt != -1 && (KilledAt + 7200000) > DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
         public bool IsRespawnTimeWithinRange(TimeSpan timespan) => GetRespawnTimeleft() <= timespan;
+        
+        // Are as follow:
+        // 1. Check if is popped, display time remaining
+        // 2. Else, check if spawn mob requires weather
+        // 3. Else, check if spawn mob requires night
+        // 4. Else, check if fate requires weather
+        // 5. Else, it's ready to be spawned
+        public List<(string Action, TimeSpan Time)> GetRespawnRequirements(IEurekaTracker tracker)
+        {
+            // TODO: Add support for 'next possible time' that uses the next pop time + next weather, etc times
+            List<(string Action, TimeSpan Time)> respawnRequirements = new();
+            if (IsPopped())
+            {
+                respawnRequirements.Add(("Respawn", GetRespawnTimeleft()));
+            }
+
+            if (SpawnByRequiredWeather != EurekaWeather.None && SpawnByRequiredWeather != tracker.GetCurrentWeatherInfo().Weather)
+            {
+                var (weather, time) = tracker.GetAllNextWeatherTime().Single(x => x.Weather == SpawnByRequiredWeather);
+                respawnRequirements.Add((weather.ToFriendlyString(), time));
+
+            }
+            else if (SpawnRequiredWeather != EurekaWeather.None && SpawnRequiredWeather != tracker.GetCurrentWeatherInfo().Weather)
+            {
+                var (weather, time) = tracker.GetAllNextWeatherTime().Single(x => x.Weather == SpawnRequiredWeather);
+                respawnRequirements.Add((weather.ToFriendlyString(), time));
+            }
+
+            if (SpawnByRequiredNight && EorzeaTime.Now.EorzeaDateTime.Hour >= 6 && EorzeaTime.Now.EorzeaDateTime.Hour < 19)
+                respawnRequirements.Add(("Night", EorzeaTime.Now.TimeUntilNight()));
+
+            return respawnRequirements;
+        }
 
         public DateTime GetPoppedTime() => EorzeaTime.Zero.AddMilliseconds(KilledAt).ToLocalTime();
 
