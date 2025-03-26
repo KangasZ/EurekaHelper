@@ -292,7 +292,7 @@ namespace EurekaHelper
             if (instance != null)
             {
                 var mapPayload = new MapLinkPayload(territoryId, mapId, PosX, PosY);
-                instance->IsFlagMarkerSet = 0;
+                instance->IsFlagMarkerSet = false;
 
                 if (drawCircle)
                 {
