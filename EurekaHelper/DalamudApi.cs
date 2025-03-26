@@ -166,7 +166,14 @@ namespace Dalamud
             // Create list of tuples that will be filled with one tuple per alias, in addition to the base command tuple.
             var commandInfoTuples = new List<(string, CommandInfo)> { (command?.Command, commandInfo) };
             if (aliases != null)
-                commandInfoTuples.AddRange(aliases.Aliases.Select(alias => (alias, commandInfo)));
+                commandInfoTuples.AddRange(aliases.Aliases.Select(alias => (alias, 
+                    new CommandInfo(handlerDelegate) 
+                    {
+                    HelpMessage = helpMessage?.HelpMessage ?? string.Empty,
+                    ShowInHelp = !aliases.Hidden 
+                    }
+                    ))
+                );
 
             return commandInfoTuples;
         }
@@ -183,11 +190,13 @@ namespace Dalamud
     [AttributeUsage(AttributeTargets.Method)]
     public class AliasesAttribute : Attribute
     {
+        public bool Hidden { get; set; }
         public string[] Aliases { get; }
 
-        public AliasesAttribute(params string[] aliases)
+        public AliasesAttribute(bool hidden, params string[] aliases)
         {
             Aliases = aliases;
+            Hidden = hidden;
         }
     }
 

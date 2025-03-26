@@ -114,12 +114,12 @@ namespace EurekaHelper;
 #endif
 
         [Command("/eurekahelper")]
-        [Aliases("/ehelper", "/eh")]
+        [Aliases(false, "/ehelper", "/eh")]
         [HelpMessage("Opens / Closes the configuration window")]
         private void ToggleConfig(string command, string argument) => DrawConfigUI();
 
         [Command("/arisu")]
-        [Aliases("/miniarisu", "/mercy")]
+        [Aliases(true, "/miniarisu", "/mercy")]
         [HelpMessage("Display next weather for Crab, Cassie & Skoll.")]
         private void Arisu(string command, string argument)
         {
