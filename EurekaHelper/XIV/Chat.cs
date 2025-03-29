@@ -109,8 +109,8 @@ public unsafe class Chat
     {
         var uText = Utf8String.FromString(text);
 
-        // 0x27 = 39 = 0b100111 = 1 | 2 | 4 | 32 = UppercaseLetters | LowercaseLetters | Numbers | OtherCharacters
-        uText->SanitizeString(AllowedEntities.UppercaseLetters | AllowedEntities.LowercaseLetters | AllowedEntities.Numbers | AllowedEntities.OtherCharacters, (Utf8String*)nint.Zero);
+        // 0x27
+        uText->SanitizeString(AllowedEntities.UppercaseLetters | AllowedEntities.LowercaseLetters | AllowedEntities.Numbers | AllowedEntities.OtherCharacters | AllowedEntities.Payloads | AllowedEntities.SpecialCharacters, (Utf8String*)nint.Zero);
         var sanitised = uText->ToString();
         uText->Dtor(true);
 

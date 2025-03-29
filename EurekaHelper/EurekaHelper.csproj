@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<Authors>Snowy, KangasZ</Authors>
-		<Version>2.0.2.1</Version>
+		<Version>2.0.2.2</Version>
 		<Description>A plugin to enchance your Eureka experience, updated for the most current patch</Description>
 		<PackageProjectUrl>https://github.com/KangasZ/EurekaHelper</PackageProjectUrl>
 	</PropertyGroup>
