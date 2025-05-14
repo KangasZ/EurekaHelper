@@ -7,7 +7,6 @@ using Newtonsoft.Json.Linq;
 using System.Linq;
 using System.Numerics;
 using System.Threading;
-using Dalamud.Game.Text.SeStringHandling.Payloads;
 using EurekaHelper.System;
 using EurekaHelper.Windows;
 using EurekaHelper.XIV;
@@ -19,6 +18,7 @@ namespace EurekaHelper;
         public string Name => "Eureka Helper";
         public static Configuration Config { get; private set; }
         public static EurekaHelper Plugin { get; private set; }
+        public int CurrentDatacenterId { get; private set; } = 0;
 
         internal readonly WindowSystem WindowSystem;
         internal readonly PluginWindow PluginWindow;
@@ -58,6 +58,8 @@ namespace EurekaHelper;
 
             DalamudApi.PluginInterface.UiBuilder.Draw += DrawUI;
             DalamudApi.PluginInterface.UiBuilder.OpenConfigUi += DrawConfigUI;
+            DalamudApi.ClientState.Login += OnLogin;
+            DalamudApi.Framework.RunOnTick(UpdateDatacenterId);
         }
 
 #if DEBUG
@@ -159,16 +161,15 @@ namespace EurekaHelper;
         private async void ETrackers(string command, string argument)
         {
             var connectionManager = await EurekaConnectionManager.Connect();
-
-            var datacenterId = Utils.DatacenterToEurekaDatacenterId(DalamudApi.ClientState.LocalPlayer.CurrentWorld.Value.DataCenter.Value.Name.ToString());
-            if (datacenterId == 0)
+            DalamudApi.Log.Information($"DC ID {CurrentDatacenterId}");
+            if (CurrentDatacenterId == 0)
             {
                 PrintMessage("This datacenter is not supported currently. Please submit an issue if you think this is incorrect.");
                 await connectionManager.Close();
                 return;
             }
 
-            await connectionManager.Send(JArray.Parse(@$"[ ""1"", ""1"", ""datacenter:{datacenterId}"", ""phx_join"", {{}} ]").ToString());
+            await connectionManager.Send(JArray.Parse(@$"[ ""1"", ""1"", ""datacenter:{CurrentDatacenterId}"", ""phx_join"", {{}} ]").ToString());
             Thread.Sleep(500);
 
             var trackerList = connectionManager.GetCurrentTrackers();
@@ -228,6 +229,17 @@ namespace EurekaHelper;
             });
         }
 
+        private void OnLogin()
+        {
+            DalamudApi.Framework.RunOnTick(UpdateDatacenterId);
+        }
+        
+        private void UpdateDatacenterId()
+        {
+            if (DalamudApi.ClientState.LocalPlayer is null || !DalamudApi.ClientState.IsLoggedIn) return;
+            CurrentDatacenterId = Utils.DatacenterToEurekaDatacenterId(DalamudApi.ClientState.LocalPlayer.CurrentWorld.Value.DataCenter.Value.Name.ExtractText());
+        }
+        
         public void Dispose()
         {
             WindowSystem.RemoveAllWindows();
@@ -239,5 +251,6 @@ namespace EurekaHelper;
             AlarmManager.Dispose();
             PluginWindow.GetConnection().Dispose();
             DalamudApi.PluginInterface.RemoveChatLinkHandler();
+            DalamudApi.ClientState.Login -= OnLogin;
         }
     }

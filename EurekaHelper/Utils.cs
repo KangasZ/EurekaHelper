@@ -40,21 +40,22 @@ namespace EurekaHelper
         public static readonly int MapCircleRadius = 80;
 
         // Only allow these datacenters, the rest are not supported.
-        public static readonly Dictionary<int, string> DatacenterToEurekaDataCenterId = new()
+        public static readonly Dictionary<string, int> DatacenterStringToEurekaId = new()
         {
-            { 1, "Elemental" },
-            { 2, "Gaia" },
-            { 3, "Mana" },
-            { 4, "Aether" },
-            { 5, "Primal" },
-            { 6, "Chaos" },
-            { 10, "Crystal" },
-            { 11, "Light" },
-            { 12, "Materia" },
-            { 13, "Dynamis" },
-            { 14, "Meteor" }
+            { "Elemental", 1 },
+            { "Gaia", 2 },
+            { "Mana", 3 },
+            { "Aether", 4 },
+            { "Primal", 5 },
+            { "Chaos", 6 },
+            { "Crystal",7 },
+            { "Light", 8 },
+            { "Materia", 9 },
+            { "Dynamis", 10 },
+            { "Meteor", 11 }
         };
     }
+
 
     internal class Utils
     {
@@ -357,7 +358,7 @@ namespace EurekaHelper
             Chat.SendMessage(sanitized);
         }
 
-        public static int DatacenterToEurekaDatacenterId(string datacenterName) => Constants.DatacenterToEurekaDataCenterId.FirstOrDefault(x => x.Value == datacenterName).Key;
+        public static int DatacenterToEurekaDatacenterId(string datacenterName) => Constants.DatacenterStringToEurekaId.GetValueOrDefault(datacenterName, 0);
 
         public static string RandomFormattedText(EurekaFate fate)
         {

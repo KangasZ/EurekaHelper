@@ -149,14 +149,12 @@ namespace EurekaHelper.Windows
                     {
                         if (ImGuiComponents.IconButton(FontAwesomeIcon.LockOpen))
                         {
-                            var datacenterId = Utils.DatacenterToEurekaDatacenterId(DalamudApi.ClientState.LocalPlayer
-                                ?.CurrentWorld.Value.DataCenter.Value.Name.ExtractText() ?? "null");
 
-                            if (datacenterId == 0)
+                            if (Plugin.CurrentDatacenterId == 0)
                                 EurekaHelper.PrintMessage(
                                     "This datacenter is not supported currently. Please submit an issue if you think this is incorrect.");
                             else
-                                await Connection.SetTrackerVisiblity(datacenterId);
+                                await Connection.SetTrackerVisiblity(Plugin.CurrentDatacenterId);
                         }
 
                         Utils.SetTooltip("Set tracker to public");
