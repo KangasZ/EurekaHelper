@@ -161,7 +161,6 @@ namespace EurekaHelper;
         private async void ETrackers(string command, string argument)
         {
             var connectionManager = await EurekaConnectionManager.Connect();
-            DalamudApi.Log.Information($"DC ID {CurrentDatacenterId}");
             if (CurrentDatacenterId == 0)
             {
                 PrintMessage("This datacenter is not supported currently. Please submit an issue if you think this is incorrect.");
