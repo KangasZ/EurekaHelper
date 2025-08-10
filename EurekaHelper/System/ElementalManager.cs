@@ -85,11 +85,11 @@ namespace EurekaHelper.System
 
                 if (EurekaHelper.Config.DisplayElemental)
                 {
-                    DalamudApi.PluginInterface.RemoveChatLinkHandler(eurekaElemental.ObjectId);
+                    DalamudApi.ChatGui.RemoveChatLinkHandler(eurekaElemental.ObjectId);
 
                     if (EurekaHelper.Config.ElementalPayloadOptions != PayloadOptions.Nothing)
                     {
-                        DalamudLinkPayload payload = DalamudApi.PluginInterface.AddChatLinkHandler(eurekaElemental.ObjectId, (i, m) =>
+                        DalamudLinkPayload payload = DalamudApi.ChatGui.AddChatLinkHandler(eurekaElemental.ObjectId, (i, m) =>
                         {
                             Utils.SetFlagMarker(eurekaElemental.TerritoryId, eurekaElemental.MapId, eurekaElemental.Position);
 

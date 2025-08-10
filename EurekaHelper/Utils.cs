@@ -2,7 +2,6 @@
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Game.Text.SeStringHandling.Payloads;
 using System.Globalization;
-using ImGuiNET;
 using System;
 using System.Linq;
 using Dalamud.Interface;
@@ -11,6 +10,7 @@ using System.Reflection;
 using System.Numerics;
 using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 using System.Collections.Generic;
+using Dalamud.Bindings.ImGui;
 using Lumina.Data.Parsing.Layer;
 using Lumina.Data.Files;
 using Dalamud.Utility;
@@ -293,7 +293,7 @@ namespace EurekaHelper
             if (instance != null)
             {
                 var mapPayload = new MapLinkPayload(territoryId, mapId, PosX, PosY);
-                instance->IsFlagMarkerSet = false;
+                instance->FlagMarkerCount = 0;
 
                 if (drawCircle)
                 {

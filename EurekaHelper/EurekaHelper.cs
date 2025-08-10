@@ -249,7 +249,7 @@ namespace EurekaHelper;
             InventoryManager.Dispose();
             AlarmManager.Dispose();
             PluginWindow.GetConnection().Dispose();
-            DalamudApi.PluginInterface.RemoveChatLinkHandler();
+            DalamudApi.ChatGui.RemoveChatLinkHandler();
             DalamudApi.ClientState.Login -= OnLogin;
         }
     }

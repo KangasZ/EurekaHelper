@@ -15,7 +15,7 @@ namespace EurekaHelper.System
         public ZoneManager() 
         {
             DalamudApi.GameInteropProvider.InitializeFromAttributes(this);
-            InitZoneHook?.Enable();
+            //InitZoneHook?.Enable();
 
             var dtrBarTitle = "Eureka Helper";
             try
@@ -41,7 +41,7 @@ namespace EurekaHelper.System
             }
         }
 
-        [Signature("E8 ?? ?? ?? ?? 45 33 C0 48 8D 56 ?? 8B CF E8 ?? ?? ?? ?? 48 8D 4E", DetourName = nameof(InitZoneDetour))]
+        /*[Signature("E8 ?? ?? ?? ?? 45 33 C0 48 8D 56 ?? 8B CF E8 ?? ?? ?? ?? 48 8D 4E", DetourName = nameof(InitZoneDetour))]
         private readonly Hook<InitZoneDelegate> InitZoneHook = null!;
 
         private nint InitZoneDetour(nint a1, int a2, nint a3)
@@ -81,11 +81,11 @@ namespace EurekaHelper.System
             }
 
             return InitZoneHook.Original(a1, a2, a3);
-        }
+        }*/
 
         public void Dispose()
         {
-            InitZoneHook?.Dispose();
+            //InitZoneHook?.Dispose();
             _dtrBarEntry?.Remove();
         }
     }

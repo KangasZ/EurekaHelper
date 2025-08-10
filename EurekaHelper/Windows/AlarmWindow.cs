@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Numerics;
+using Dalamud.Bindings.ImGui;
 using Dalamud.Interface;
 using Dalamud.Interface.Colors;
 using Dalamud.Interface.Components;
@@ -9,7 +10,6 @@ using Dalamud.Interface.Windowing;
 using EurekaHelper.System;
 using EurekaHelper.XIV;
 using EurekaHelper.XIV.Zones;
-using ImGuiNET;
 
 namespace EurekaHelper.Windows
 {

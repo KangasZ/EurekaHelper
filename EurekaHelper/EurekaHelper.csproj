@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<Authors>Snowy, KangasZ</Authors>
-		<Version>2.0.2.3</Version>
+		<Version>2.0.3.0</Version>
 		<Description>A plugin to enchance your Eureka experience, updated for the most current patch</Description>
 		<PackageProjectUrl>https://github.com/KangasZ/EurekaHelper</PackageProjectUrl>
 	</PropertyGroup>
@@ -26,7 +26,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DalamudPackager" Version="12.0.0" />
+		<PackageReference Include="DalamudPackager" Version="13.0.0" />
 		<Reference Include="FFXIVClientStructs">
 			<HintPath>$(DalamudLibPath)FFXIVClientStructs.dll</HintPath>
 			<Private>false</Private>
@@ -37,14 +37,6 @@
 		</Reference>
 		<Reference Include="Dalamud">
 			<HintPath>$(DalamudLibPath)Dalamud.dll</HintPath>
-			<Private>false</Private>
-		</Reference>
-		<Reference Include="ImGui.NET">
-			<HintPath>$(DalamudLibPath)ImGui.NET.dll</HintPath>
-			<Private>false</Private>
-		</Reference>
-		<Reference Include="ImGuiScene">
-			<HintPath>$(DalamudLibPath)ImGuiScene.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="Lumina">
@@ -58,6 +50,18 @@
 		<Reference Include="InteropGenerator.Runtime">
 			<HintPath>$(DalamudLibPath)InteropGenerator.Runtime.dll</HintPath>
 			<Private>false</Private>
+		</Reference>
+		<Reference Include="Dalamud.Bindings.ImGui">
+			<HintPath>$(DalamudLibPath)Dalamud.Bindings.ImGui.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Dalamud.Bindings.ImPlot">
+			<HintPath>$(DalamudLibPath)Dalamud.Bindings.ImPlot.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Dalamud.Bindings.ImGuizmo">
+			<HintPath>$(DalamudLibPath)Dalamud.Bindings.ImGuizmo.dll</HintPath>
+			<Private>False</Private>
 		</Reference>
 	</ItemGroup>
 

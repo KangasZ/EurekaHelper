@@ -50,9 +50,6 @@ namespace Dalamud
         public static IGameGui GameGui { get; private set; }
 
         [PluginService]
-        public static IGameNetwork GameNetwork { get; private set; }
-
-        [PluginService]
         public static IJobGauges JobGauges { get; private set; }
 
         [PluginService]

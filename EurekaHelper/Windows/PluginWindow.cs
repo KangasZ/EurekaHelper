@@ -1,15 +1,12 @@
 ﻿using Dalamud.Interface.Windowing;
 using System;
-using ImGuiNET;
 using System.Numerics;
 using Dalamud.Interface;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using System.Collections.Generic;
 using System.Linq;
-using Dalamud.Logging;
+using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Components;
-using Dalamud.Game.Text;
 using Dalamud.Interface.Colors;
 using EurekaHelper.System;
 using EurekaHelper.XIV;
@@ -979,7 +976,7 @@ namespace EurekaHelper.Windows
 
         public static void DrawSettingsTab()
         {
-            ImGui.Columns(2, null, true);
+            ImGui.Columns(2, "settings", true);
 
             var save = false;
             var useChatSoundEffect = EurekaHelper.Config.GlobalUseChatSoundEffect;
@@ -1225,9 +1222,9 @@ namespace EurekaHelper.Windows
 
         public static EurekaConnectionManager GetConnection() => Connection;
 
-        private unsafe int IntegerCheck(ImGuiInputTextCallbackData* data)
+        private int IntegerCheck(ImGuiInputTextCallbackDataPtr data)
         {
-            char c = Convert.ToChar(data->EventChar);
+            var c = Convert.ToChar(data.EventChar);
 
             if (c >= '0' && c <= '9')
                 return 0;
