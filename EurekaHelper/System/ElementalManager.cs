@@ -25,7 +25,7 @@ namespace EurekaHelper.System
                 DalamudApi.Framework.Update += OnUpdate;
         }
 
-        private void OnTerritoryChanged(ushort territoryId)
+        private void OnTerritoryChanged(uint territoryId)
         {
             if (Utils.IsPlayerInEurekaZone(territoryId))
             {
@@ -170,7 +170,7 @@ namespace EurekaHelper.System
             }
         }
 
-        public static List<Vector3> GetKnownLocations(ushort territoryId)
+        public static List<Vector3> GetKnownLocations(uint territoryId)
         {
             return territoryId switch
             {

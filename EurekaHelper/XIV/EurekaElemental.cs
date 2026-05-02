@@ -13,11 +13,11 @@ namespace EurekaHelper.XIV
         public Vector3 RawPosition { get; init; }
         public Vector2 Position { get; init; }
         public uint ObjectId { get; set; }
-        public ushort TerritoryId { get; set; }
+        public uint TerritoryId { get; set; }
         public ushort MapId { get; set; }
         public long LastSeen { get; set; }
 
-        public EurekaElemental(string name, ushort territoryId, Vector3 position, uint objectId)
+        public EurekaElemental(string name, uint territoryId, Vector3 position, uint objectId)
         {
             Name = name;
             TerritoryId = territoryId;

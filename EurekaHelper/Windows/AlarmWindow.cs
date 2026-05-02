@@ -39,7 +39,7 @@ namespace EurekaHelper.Windows
         private EurekaWeather WeatherType = EurekaWeather.FairSkies;
         private BaseSoundEffect SoundEffect = BaseSoundEffect.SoundEffect45;
         private ChatSoundEffect ChatSoundEffect = ChatSoundEffect.ChatSoundEffect10;
-        private ushort AlarmZone = 732;
+        private uint AlarmZone = 732;
         private int MinutesBefore = 5;
 
         public override void Draw()

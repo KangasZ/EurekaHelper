@@ -43,7 +43,7 @@ namespace EurekaHelper.System
             }
         }
 
-        public static void PlaySoundEffect(BaseSoundEffect soundEffect)
+        public static unsafe void PlaySoundEffect(BaseSoundEffect soundEffect)
         {
             if (!Enum.IsDefined(typeof(BaseSoundEffect), soundEffect))
             {

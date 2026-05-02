@@ -25,7 +25,7 @@ namespace EurekaHelper.XIV
         public AlarmType Type { get; set; }
         public TimeType TimeType { get; set; }
         public EurekaWeather Weather { get; set; }
-        public ushort ZoneId { get; set; }
+        public uint ZoneId { get; set; }
         public int MinutesOffset { get; set; }
         public bool Enabled { get; set; } = false;
         public bool PrintMessage { get; set; } = false;

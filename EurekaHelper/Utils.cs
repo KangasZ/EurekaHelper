@@ -29,7 +29,7 @@ namespace EurekaHelper
         // 763 - Pagos
         // 795 - Pyros
         // 827 - Hydatos
-        public static readonly ushort[] EurekaZones = { 732, 763, 795, 827 };
+        public static readonly uint[] EurekaZones = { 732, 763, 795, 827 };
 
         public static readonly ushort[] BunnyFates = { 1367, 1368, 1407, 1408, 1425 };
 
@@ -60,15 +60,15 @@ namespace EurekaHelper
     {
         private static readonly Random random = new();
 
-        private static readonly Dictionary<int, List<LayerCommon.InstanceObject>> LgbEventData =
+        private static readonly Dictionary<uint, List<LayerCommon.InstanceObject>> LgbEventData =
             new();
 
-        public static bool IsPlayerInEurekaZone(ushort territoryId) =>
+        public static bool IsPlayerInEurekaZone(uint territoryId) =>
             Constants.EurekaZones.Contains(territoryId);
 
         public static bool IsBunnyFate(ushort fateId) => Constants.BunnyFates.Contains(fateId);
 
-        public static int GetIndexOfZone(ushort id) => Array.IndexOf(Constants.EurekaZones, id) + 1;
+        public static int GetIndexOfZone(uint id) => Array.IndexOf(Constants.EurekaZones, id) + 1;
 
         public static string CombineUrl(string baseUrl, params string[] segments) =>
             string.Join(
@@ -76,7 +76,7 @@ namespace EurekaHelper
                 new[] { baseUrl.TrimEnd('/') }.Concat(segments.Select(s => s.Trim('/')))
             );
 
-        public static IEurekaTracker GetEurekaTracker(ushort territoryId)
+        public static IEurekaTracker GetEurekaTracker(uint territoryId)
         {
             return territoryId switch
             {
@@ -87,7 +87,7 @@ namespace EurekaHelper
             };
         }
 
-        public static string GetZoneName(ushort zoneId)
+        public static string GetZoneName(uint zoneId)
         {
             return zoneId switch
             {
@@ -310,7 +310,7 @@ namespace EurekaHelper
         }
 
         public static unsafe void SetFlagMarker(
-            ushort territoryId,
+            uint territoryId,
             ushort mapId,
             Vector2 position,
             bool openMap = false,
@@ -372,7 +372,7 @@ namespace EurekaHelper
             );
 
         public static unsafe void AddMapMarker(
-            ushort territoryId,
+            uint territoryId,
             Vector3 position,
             uint iconId,
             bool openMap = false

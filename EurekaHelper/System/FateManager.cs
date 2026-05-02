@@ -30,7 +30,7 @@ namespace EurekaHelper.System
             }
         }
 
-        private void OnTerritoryChanged(ushort territoryId)
+        private void OnTerritoryChanged(uint territoryId)
         {
             if (Utils.IsPlayerInEurekaZone(territoryId))
             {
